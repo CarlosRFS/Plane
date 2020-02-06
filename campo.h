@@ -1,3 +1,4 @@
+#include <iostream>
 #include <cstdio>
 #include <string>
 
@@ -8,9 +9,10 @@ struct Campo {
 
 	//no construtor ele vai preencher a string campo 
 	//pela primeira vez usando o caracter passado e adicionar \n quando necessario.
-	Campo(char &caracter) {
+	Campo(char &caracter, int h, int w) 
+	:height(h), width(w) {
 		for(int i = 0; i < height * width; i++) {
-			if(i % width = 0) campo += "\n"; //adiciona um \n na string quando termina uma fila
+			if(i % width == 0) campo += "\n"; //adiciona um \n na string quando termina uma fila
 			
 			if(i < width) campo += caracter; //automaticamente preenche a 1 fila
 
@@ -25,6 +27,7 @@ struct Campo {
 	
 	//vai desenhar a string campo na tela;
 	void print() {
-		printf("\033[2J \033[0;0H%c", &campo);
+		printf("\033[2J \033[0;0H");
+		std::cout << campo;
 	}
 };
