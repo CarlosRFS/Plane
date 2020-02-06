@@ -21,6 +21,8 @@ struct Campo {
 			else if(i % width == width - 1) campo += caracter; // os ultimos de cada fila
 
 			else if(i + width > width * height) campo += caracter; // preenche a ultima fila inteira
+
+			else campo += " ";
 		}
 		campo += "\n";	
 	} 
