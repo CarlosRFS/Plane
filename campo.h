@@ -1,6 +1,10 @@
+#ifndef CAMPO_H
+#define CAMPO_H
+
 #include <iostream>
 #include <cstdio>
 #include <string>
+
 
 struct Campo {
 	std::string campo;
@@ -33,3 +37,5 @@ struct Campo {
 		std::cout << campo;
 	}
 };
+
+#endif

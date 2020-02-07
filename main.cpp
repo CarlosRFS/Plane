@@ -1,8 +1,7 @@
-#include "campo.h"
+#include "game.h" 
 
 int main() {
-	char b = 26;
-	Campo c{b, 30, 50};
-	c.print();
+	Game jogo;
+	jogo.run();
 	return 0;
 }

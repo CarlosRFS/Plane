@@ -3,12 +3,12 @@
 struct Tiro {
 	int pos;
 
-	Tiro(int &body) {
+	Tiro(int &body, Campo &c1) {
 		pos=body - c1.width + 1;
 	}
 
 	void draw_on_campo(Campo &c1) {
-		c1.campo[pos] = x;
+		c1.campo[pos] = 'x';
 	}
 
 	void disparo(Campo &c1) {
