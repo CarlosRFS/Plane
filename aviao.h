@@ -42,5 +42,6 @@ struct Aviao {
 	void atirar(Campo &c1) {
 		Tiro * t1 = new Tiro{body, c1};
 		t1->trigger(c1);
+		if(c1.campo[t1->pos] == 26) delete t1;
 	}
 };
