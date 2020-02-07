@@ -28,7 +28,7 @@ struct Campo {
 
 			else campo += " ";
 		}
-		campo += "\n";	
+		//campo += "\n";	
 	} 
 	
 	//vai desenhar a string campo na tela;

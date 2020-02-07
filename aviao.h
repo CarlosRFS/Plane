@@ -7,7 +7,7 @@ struct Aviao {
 	int body;
 	char caracter = 26;
 	Aviao(Campo &c1, char &caracter) {
-		body = (c1.width + 1) * (c1.height - 4);
+		body = 1300; 
 		draw_on_campo(c1);
 	}
 
