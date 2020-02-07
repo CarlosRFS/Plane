@@ -43,7 +43,6 @@ struct Aviao {
 
 	void atirar(Campo &c1) {
 		Tiro * t1 = new Tiro{body, c1};
-		std::thread * th1 = new std::thread(t1->disparo(c1));
-		th1->join();
+		t1->trigger(c1);
 	}
 };

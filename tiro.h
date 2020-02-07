@@ -12,6 +12,12 @@ struct Tiro {
 	void draw_on_campo(Campo &c1) {
 		c1.campo[pos] = 'x';
 	}
+	
+
+	void trigger(Campo &c1) {
+		std::thread * th1 = new std::thread(disparo, c1);
+		th1.join();
+	}
 
 	void disparo(Campo &c1) {
 		for(;;) {
@@ -20,5 +26,6 @@ struct Tiro {
 			if(c1.campo[pos] == 26) break; //se a posição dele chegar em algo "desenhado" o loop acaba
 			std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		}
+		return;
 	}
 };
