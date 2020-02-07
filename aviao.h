@@ -1,8 +1,6 @@
 #include "campo.h"
 #include "tiro.h"
 
-#include <thread>
-
 struct Aviao {
 	int body;
 	char caracter = 26;
@@ -44,5 +42,6 @@ struct Aviao {
 	void atirar(Campo &c1) {
 		Tiro * t1 = new Tiro{body, c1};
 		t1->trigger(c1);
+		delete t1;
 	}
 };

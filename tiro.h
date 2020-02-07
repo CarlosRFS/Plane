@@ -15,7 +15,7 @@ struct Tiro {
 	
 
 	void trigger(Campo &c1) {
-		std::thread * th1 = new std::thread(disparo, c1);
+		std::thread th1([&](){ this->disparo(c1); });
 		th1.join();
 	}
 
