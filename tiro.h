@@ -15,7 +15,7 @@ struct Tiro {
 		for(;;) {
 			draw_on_campo(c1);
 			pos++;
-			if(c1.campo[pos] == 26) break;
+			if(c1.campo[pos] == 26) break; //se a posição dele chegar em algo "desenhado" o loop acaba
 		}
 	}
 };
