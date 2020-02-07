@@ -1,4 +1,6 @@
 #include "campo.h"
+#include <chrono>
+#include <thread>
 
 struct Tiro {
 	int pos;
@@ -16,6 +18,7 @@ struct Tiro {
 			draw_on_campo(c1);
 			pos++;
 			if(c1.campo[pos] == 26) break; //se a posição dele chegar em algo "desenhado" o loop acaba
+			std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		}
 	}
 };
