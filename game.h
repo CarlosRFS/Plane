@@ -31,6 +31,8 @@ struct Game {
 				player.move_d(c);
 				c.print();
 				break;
+			case 't':
+				player.atirar(c);
 		}
 	}
 

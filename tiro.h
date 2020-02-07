@@ -22,9 +22,9 @@ struct Tiro {
 	void disparo(Campo &c1) {
 		for(;;) {
 			draw_on_campo(c1);
-			pos++;
+			pos -= (c1.width + 1);
 			if(c1.campo[pos] == 26) break; //se a posição dele chegar em algo "desenhado" o loop acaba
-			std::this_thread::sleep_for(std::chrono::milliseconds(100));
+			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 		}
 		return;
 	}
