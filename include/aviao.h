@@ -3,16 +3,18 @@
 
 struct Aviao {
 	int body;
+	int asa1;
 	char caracter = 26;
 	Aviao(Campo &c1, char &caracter) {
-		body = 1300; // Posiciona corretamente apenas em um campo 50x30 
+		body = 1300; // Posiciona corretamente apenas em um campo 50x30
+		asa1 = body + c1.width - 2;
 		draw_on_campo(c1);
 	}
 
 	void draw_on_campo(Campo &c1) {
 		for(int i = 0; i < 4; i++) c1.campo[body + (i * (c1.width + 1))] = caracter;
 
-		for(int i = 0; i < 7; i++) c1.campo[body + c1.width - 2 + i] = caracter;
+		for(int i = 0; i < 7; i++) c1.campo[asa1 + i] = caracter;
 
 		for(int i = 0; i < 3; i++) c1.campo[body + 3 * c1.width + 2 + i] = caracter;
 	}
@@ -20,22 +22,24 @@ struct Aviao {
 	void erase_on_campo(Campo &c1) {
 		for(int i = 0; i < 4; i++) c1.campo[body + (i * (c1.width + 1))] = ' ';
 
-		for(int i = 0; i < 7; i++) c1.campo[body + c1.width - 2 + i] = ' ';
+		for(int i = 0; i < 7; i++) c1.campo[asa1 + i] = ' ';
 
 		for(int i = 0; i < 3; i++) c1.campo[body + 3 * c1.width + 2 + i] = ' ';
 	}
 	
 	void move_e(Campo &c1) {
-		if(c1.campo[body - 1] == 26) return;
+		if(c1.campo[asa1 - 1] == 26) return;
 		erase_on_campo(c1);
-		body-=1;
+		body -= 1;
+		asa1 -= 1;
 		draw_on_campo(c1);
 	}
 	
 	void move_d(Campo &c1) {
-		if(c1.campo[body + 1] == 26) return;
+		if(c1.campo[asa1 + 7] == 26) return;
 		erase_on_campo(c1);
-		body+=1;
+		body += 1;
+		asa1 += 1;
 		draw_on_campo(c1);
 	}
 
