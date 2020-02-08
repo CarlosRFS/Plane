@@ -1,6 +1,5 @@
 #include "campo.h"
 #include "aviao.h"
-#include <cstdio>
 #include <termios.h>
 #include <unistd.h>
 
@@ -21,7 +20,7 @@ struct Game {
 
 	void input() {
 		enter_off();
-		comando = getchar();
+		comando = std::cin.get();
 		switch(comando) {
 			case 'a':
 				player.move_e(c);
