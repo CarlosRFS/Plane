@@ -29,7 +29,7 @@ struct Tiro {
 			std::this_thread::sleep_for(std::chrono::milliseconds(200));
 			erase_on_campo(c1);
 			pos -= (c1.width + 1);
-			if(c1.campo[pos] == 26) break; //se a posição dele chegar em algo "desenhado" o loop acaba
+			if(c1.campo[pos] == 26) break; // Se a posição dele chegar em algo "desenhado" o loop acaba
 		}
 		c1.print();
 		return;

@@ -5,7 +5,7 @@ struct Aviao {
 	int body;
 	char caracter = 26;
 	Aviao(Campo &c1, char &caracter) {
-		body = 1300; //posiciona corretamente apenas em um campo 50x30 
+		body = 1300; // Posiciona corretamente apenas em um campo 50x30 
 		draw_on_campo(c1);
 	}
 
