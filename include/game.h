@@ -8,7 +8,8 @@ struct Game {
 	char comando;
 
 	Campo c{caracter, 30, 50};
-	Aviao player{c, caracter};
+	Aviao player{c};
+	//Aviao inimigo{c, true};
 
 	struct termios t;
 
