@@ -9,7 +9,7 @@ struct Game {
 
 	Campo c{caracter, 30, 50};
 	Aviao player{c};
-	//Aviao inimigo{c, true};
+	Aviao inimigo{c, player};
 
 	struct termios t;
 
@@ -24,15 +24,15 @@ struct Game {
 		comando = std::cin.get();
 		switch(comando) {
 			case 'a':
-				player.move_e(c);
+				player.move_e();
 				c.print();
 				break;
 			case 'd':
-				player.move_d(c);
+				player.move_d();
 				c.print();
 				break;
 			case 't':
-				player.atirar(c);
+				player.atirar();
 		}
 	}
 

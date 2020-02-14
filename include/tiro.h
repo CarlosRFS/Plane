@@ -5,33 +5,36 @@
 struct Tiro {
 	int pos;
 
+	Campo * c;
+
 	Tiro(int &body, Campo &c1) {
-		pos = body - (c1.width + 1);
+		c = &c1;
+		pos = body - (c->width + 1);
 	}
 
-	void draw_on_campo(Campo &c1) {
-		c1.campo[pos] = 'x';
+	void draw_on_campo() {
+		c->campo[pos] = 'x';
 	}
 	
-	void erase_on_campo(Campo &c1) {
-		c1.campo[pos] = ' ';
+	void erase_on_campo() {
+		c->campo[pos] = ' ';
 	}
 
-	void trigger(Campo &c1) {
-		std::thread th1([&](){ this->disparo(c1); });
+	void trigger() {
+		std::thread th1([&](){ this->disparo(); });
 		th1.detach();
 	}
 
-	void disparo(Campo &c1) {
+	void disparo() {
 		for(;;) {
-			draw_on_campo(c1);
-			c1.print();
+			draw_on_campo();
+			c->print();
 			std::this_thread::sleep_for(std::chrono::milliseconds(100));
-			erase_on_campo(c1);
-			pos -= (c1.width + 1);
-			if(c1.campo[pos] == 26) break; // Se a posição dele chegar em algo "desenhado" o loop acaba
+			erase_on_campo();
+			pos -= (c->width + 1);
+			if(c->campo[pos] == 26) break; // Se a posição dele chegar em algo "desenhado" o loop acaba
 		}
-		c1.print();
+		c->print();
 		return;
 	}
 };
