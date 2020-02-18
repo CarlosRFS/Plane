@@ -6,6 +6,7 @@ struct Aviao {
 	int asa1;
 	int asa2;
 	char caracter = 26;
+	bool enemy = false;
 
 	Campo * c;
 	Aviao * alvo;
@@ -26,6 +27,7 @@ struct Aviao {
 		asa1 = body + 2 * c->width - 1;
 		draw_on_campo();
 		trigger();
+		enemy = true;
 	}
 
 	void trigger() {
@@ -90,7 +92,7 @@ struct Aviao {
 	
 
 	void atirar() {
-		Tiro * t1 = new Tiro{body, *c};
+		Tiro * t1 = new Tiro{body, *c, enemy};
 		t1->trigger();
 		if(c->campo[t1->pos] == 26) delete t1;
 	}

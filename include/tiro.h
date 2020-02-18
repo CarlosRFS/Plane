@@ -7,9 +7,14 @@ struct Tiro {
 
 	Campo * c;
 
-	Tiro(int &body, Campo &c1) {
+	bool enemy;
+
+	Tiro(int &body, Campo &c1, bool l) {
+		enemy = l;
 		c = &c1;
-		pos = body - (c->width + 1);
+		if(!l) pos = body - (c->width + 1);
+
+		else pos = body + 4 * (c->width + 1);
 	}
 
 	void draw_on_campo() {
@@ -31,7 +36,11 @@ struct Tiro {
 			c->print();
 			std::this_thread::sleep_for(std::chrono::milliseconds(100));
 			erase_on_campo();
-			pos -= (c->width + 1);
+
+			//Direçao do Tiro
+			if(!enemy) pos -= (c->width + 1);
+			else pos += (c->width + 1);
+
 			if(c->campo[pos] == 26) break; // Se a posição dele chegar em algo "desenhado" o loop acaba
 		}
 		c->print();
