@@ -41,7 +41,8 @@ struct Tiro {
 			if(!enemy) pos -= (c->width + 1);
 			else pos += (c->width + 1);
 
-			if(c->campo[pos] == 26) break; // Se a posição dele chegar em algo "desenhado" o loop acaba
+			if(c->campo[pos] == 26) break; 
+			else if(c->campo[pos] == 'x') break;// Se a posição dele chegar em algo "desenhado" o loop acaba
 		}
 		c->print();
 		return;
