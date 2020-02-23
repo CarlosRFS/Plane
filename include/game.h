@@ -1,5 +1,6 @@
 #include "campo.h"
 #include "aviao.h"
+#include "score.h"
 #include <termios.h>
 #include <unistd.h>
 
@@ -10,6 +11,7 @@ struct Game {
 	Campo c{caracter, 30, 50};
 	Aviao player{c};
 	Aviao inimigo{c, player};
+	Score s{c};
 
 	struct termios t;
 
