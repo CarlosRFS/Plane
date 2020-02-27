@@ -1,8 +1,14 @@
+#ifndef GAME_H
+#define GAME_H
+
+
 #include "campo.h"
 #include "aviao.h"
 #include "score.h"
+#include "menu.h"
 #include <termios.h>
 #include <unistd.h>
+
 
 struct Game {
 	char caracter = 26;
@@ -10,7 +16,7 @@ struct Game {
 
 	Campo c{caracter, 30, 50};
 	Aviao player{c};
-	Aviao inimigo{c, player};
+	//Aviao inimigo{c, player};
 	Score s{c};
 
 	struct termios t;
@@ -45,3 +51,4 @@ struct Game {
 		}
 	}
 };
+#endif
