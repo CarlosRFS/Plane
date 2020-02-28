@@ -22,6 +22,7 @@ struct Menu {
 			input(jogo);
 			if(on == false) break;
 		}
+		ajuste();
 		erase();
 	}
 
@@ -71,6 +72,22 @@ struct Menu {
 				on = false;
 				break;
 			default:
+				break;
+		}
+	}
+
+	void ajuste() {
+		switch(difficulty) {
+			case '0':
+				difficulty = 3;
+				break;
+
+			case '1':
+				difficulty = 5;
+				break;
+			
+			case '2':
+				difficulty = 7;
 				break;
 		}
 	}

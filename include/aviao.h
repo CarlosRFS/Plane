@@ -19,10 +19,10 @@ struct Aviao {
 		draw_on_campo();
 	}
 	
-	Aviao(Campo &c1, Aviao &a) { //construtor dos avioes inimigos
+	Aviao(Campo &c1, Aviao &a, int &pos) { //construtor dos avioes inimigos
 		c = &c1;
 		alvo = &a;
-		body = c->width / 2; // Posiciona corretamente apenas em qualquer campo
+		body = pos; // Posiciona corretamente apenas em qualquer campo
 		asa2 = body - 1;
 		asa1 = body + 2 * c->width - 1;
 		draw_on_campo();
