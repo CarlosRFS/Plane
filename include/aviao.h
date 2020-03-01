@@ -1,5 +1,6 @@
 #include "campo.h"
 #include "tiro.h"
+#include "score.h"
 
 struct Aviao {
 	int body;
@@ -10,6 +11,7 @@ struct Aviao {
 
 	Campo * c;
 	Aviao * alvo;
+	Score * s;
 	
 	Aviao(Campo &c1) {
 		c = &c1;
@@ -19,8 +21,9 @@ struct Aviao {
 		draw_on_campo();
 	}
 	
-	Aviao(Campo &c1, Aviao &a, int &pos) { //construtor dos avioes inimigos
+	Aviao(Campo &c1, Aviao &a, int &pos, Score &s1) { //construtor dos avioes inimigos
 		c = &c1;
+		s = &s1;
 		alvo = &a;
 		body = pos; // Posiciona corretamente apenas em qualquer campo
 		asa2 = body - 1;
@@ -82,7 +85,9 @@ struct Aviao {
 			
 			if(c->campo[body + 4 * (c->width + 1)] == 26) break;
 
-			if(c->campo[body + 4 * (c->width + 1)] == 'x') break;
+			if(c->campo[body + 4 * (c->width + 1)] == 'x') {
+				s->update_score();
+				break;}
 
 			if(alvo->body % (c->width + 1) == body % (c->width + 1)) atirar(); //na frente do alvo atira	
 		}

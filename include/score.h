@@ -1,3 +1,6 @@
+#ifndef SCORE_H
+#define SCORE_H
+
 #include <string>
 #include <sstream>
 #include <iomanip>
@@ -25,6 +28,13 @@ struct Score {
 			c->campo[pos + i] = output[i];
 		}
 	}
+
+	void update_score() {
+		score += 10;
+		draw_on_campo();
+	}
 	
 
 };
+
+#endif

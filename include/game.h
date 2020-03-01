@@ -79,7 +79,7 @@ struct Game {
 	}
 
 	void create_enemy(int &pos) {
-		Aviao * a1 = new Aviao(c, player, pos);
+		Aviao * a1 = new Aviao(c, player, pos, s);
 	}
 
 	void run() {
