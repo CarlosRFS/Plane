@@ -25,7 +25,7 @@ struct Aviao {
 		c = &c1;
 		s = &s1;
 		alvo = &a;
-		body = pos; // Posiciona corretamente apenas em qualquer campo
+		body = pos - 3 * (1 + c->width); // Posiciona corretamente apenas em qualquer campo
 		asa2 = body - 1;
 		asa1 = body + 2 * c->width - 1;
 		draw_on_campo();
@@ -39,11 +39,20 @@ struct Aviao {
 	}
 
 	void draw_on_campo() {
-		for(int i = 0; i < 4; i++) c->campo[body + (i * (c->width + 1))] = caracter;
+		for(int i = 0; i < 4; i++) { 
+			if(body + (i * (c->width + 1)) > 0)
+				c->campo[body + (i * (c->width + 1))] = caracter; 
+		}
 
-		for(int i = 0; i < 7; i++) c->campo[asa1 + i] = caracter;
+		for(int i = 0; i < 7; i++) {
+			if(asa1 + 1 > 0)
+				c->campo[asa1 + i] = caracter;
+		}
 
-		for(int i = 0; i < 3; i++) c->campo[asa2 + i] = caracter;
+		for(int i = 0; i < 3; i++) {
+			if(asa2 + i > 0)
+				c->campo[asa2 + i] = caracter;
+		}
 	}
 
 	void erase_on_campo() {
