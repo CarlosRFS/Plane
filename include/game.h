@@ -69,7 +69,7 @@ struct Game {
 			int g = pos;
 			for(int y = 0; y < 3; y++) {
 				if(inimigos[w]) create_enemy(g);
-				g += 12;
+				g += 18;
 				w++;
 			}
 			std::this_thread::sleep_for(std::chrono::milliseconds(4000));

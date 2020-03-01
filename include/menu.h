@@ -22,8 +22,8 @@ struct Menu {
 			input(jogo);
 			if(on == false) break;
 		}
-		ajuste();
 		erase();
+		ajuste();
 	}
 
 	void draw_on_campo() {
