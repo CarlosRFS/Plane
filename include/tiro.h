@@ -6,14 +6,13 @@ struct Tiro {
 	int pos;
 
 	Campo * c;
+	bool * enemy;
 
-	bool enemy;
-
-	Tiro(int &body, Campo &c1, bool l) {
-		enemy = l;
+	Tiro(int &body, Campo &c1, bool &l) {
+		enemy = &l;
 		c = &c1;
+		
 		if(!l) pos = body - (c->width + 1);
-
 		else pos = body + 4 * (c->width + 1);
 	}
 
@@ -38,11 +37,10 @@ struct Tiro {
 			erase_on_campo();
 
 			//Direçao do Tiro
-			if(!enemy) pos -= (c->width + 1);
+			if(!*enemy) pos -= (c->width + 1);
 			else pos += (c->width + 1);
 
-			if(c->campo[pos] != ' ') break; 
-			else if(c->campo[pos] == 'x') break;// Se a posição dele chegar em algo "desenhado" o loop acaba
+			if(c->campo[pos] != ' ') break; // Se a posição dele chegar em algo "desenhado" o loop acaba
 		}
 		c->print();
 		return;

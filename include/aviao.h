@@ -6,7 +6,7 @@ struct Aviao {
 	int body;
 	int asa1;
 	int asa2;
-	char caracter = 26;
+	static constexpr char caracter = 26;
 	bool enemy = false;
 
 	Campo * c;
