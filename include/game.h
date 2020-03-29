@@ -24,7 +24,9 @@ struct Game {
 	Aviao player{c};
 	//Aviao inimigo{c, player};
 	Score s{c};
-
+    
+    std::vector<Aviao> enemy_vector;
+    
 	struct termios t;
 
 	void enter_off() {
@@ -79,7 +81,8 @@ struct Game {
 	}
 
 	void create_enemy(int &pos) {
-		Aviao * a1 = new Aviao(c, player, pos, s);
+		Aviao a1(c, player, pos, s);
+        enemy_vector.push_back(a1);
 	}
 
 	void run() {
