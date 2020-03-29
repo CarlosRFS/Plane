@@ -1,6 +1,0 @@
-project('plane', 'cpp', version : 'v0.0.1')
-thread_dep = dependency('threads')
-incdir = include_directories('include')
-add_project_arguments('-g', language : 'cpp')
-add_project_arguments('-O0', language : 'cpp')
-executable('plane', 'src/main.cpp', dependencies : thread_dep, include_directories : incdir)

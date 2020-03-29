@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.7.1)
+Project(Plane)
+set(SOURCE src/main.cpp)
+include_directories(include)
+find_package( Threads )
+add_executable(plane ${SOURCE})
+target_link_libraries(plane ${CMAKE_THREAD_LIBS_INIT})
