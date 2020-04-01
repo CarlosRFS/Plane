@@ -35,7 +35,7 @@ struct Menu {
 			}
 			w += c->width + 1;
 		}
-		c->print();
+		c->swap_buffers();
 	}
 
 	void erase() {

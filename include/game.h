@@ -1,11 +1,13 @@
 #ifndef GAME_H
 #define GAME_H
 
-
+//PROJECT HEADERS
 #include "campo.h"
 #include "aviao.h"
 #include "score.h"
 #include "menu.h"
+
+//STD HEADERS
 #include <termios.h>
 #include <unistd.h>
 #include <array>
@@ -21,11 +23,12 @@ struct Game {
 	char comando;
 
 	Campo c{caracter, 30, 50};
-	Aviao player{c};
+	Aviao player{c, tiros_vector};
 	//Aviao inimigo{c, player};
 	Score s{c};
     
     std::vector<Aviao> enemy_vector;
+    std::vector<Tiro> tiros_vector;
     
 	struct termios t;
 
@@ -81,15 +84,60 @@ struct Game {
 	}
 
 	void create_enemy(int &pos) {
-		Aviao a1(c, player, pos, s);
+		Aviao a1{c, player, pos, s, tiros_vector};
         enemy_vector.push_back(a1);
 	}
 
 	void run() {
-		c.print();
+		c.swap_buffers();
 		for(;;) {
 			input();
 		}
 	}
+	
+	
+	//MOVE DRAW AND DESTROY CONTROL 
+	void aviao_control(std::vector<Aviao> &avioes) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(500)); 
+        if(!avioes.empty()) {
+            //loop para atualizar a posição dos tiros
+            for(int i = 0; i < avioes.size(); i++) {
+                bool a = avioes[i].disparo();
+                if(!a) enemy_vector.erase(enemy_vector.begin() + i);
+            }
+    
+            enemy_draw(avioes);
+            player.draw_on_campo(); //Desenhar o player de volta no buffer
+            c.swap_buffers();
+            
+        }
+    }
+    
+    void enemy_draw(std::vector<Aviao> &avioes) {
+        if(!avioes.empty()) {
+            for(int i = 0; i < avioes.size(); i++)
+                avioes[i].draw_on_campo();
+        }
+        
+    }
+    
+    void tiros_control(std::vector<Tiro> &tiros) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100)); 
+        if(!tiros.empty()) {
+            //loop para atualizar a posição dos tiros
+            for(int i = 0; i < tiros.size(); i++) {
+                bool a = tiros[i].disparo();
+                if(!a) tiros_vector.erase(tiros_vector.begin() + i);
+            }
+    
+            for(int i = 0; i < tiros.size(); i++) {
+                tiros[i].draw_on_campo();
+            }
+            enemy_draw(enemy_vector);
+            player.draw_on_campo();
+            c.swap_buffers();
+        }
+    
+    }
 };
 #endif

@@ -33,11 +33,16 @@ struct Campo {
         campo = buffer_limpo;
 	} 
 	
-	void swap_buffers();
+	void swap_buffers() {
+        std::cout << "TROCANDO OS BUFFERS\n";
+        frame = campo;
+        campo = buffer_limpo;
+        print();
+    }
 	
 	// Vai desenhar a string campo na tela;
 	void print() {
-		std::cout << "\033[2J \033[0;0H" << campo;
+		std::cout << "\033[2J \033[0;0H" << frame;
 	}
 };
 

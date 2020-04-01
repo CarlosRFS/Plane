@@ -2,6 +2,8 @@
 #include "tiro.h"
 #include "score.h"
 
+#include <vector>
+
 struct Aviao {
 	int body;
 	int asa1;
@@ -12,30 +14,29 @@ struct Aviao {
 	Campo * c;
 	Aviao * alvo;
 	Score * s;
+    std::vector<Tiro> * tiros;
 	
-	Aviao(Campo &c1) {
+//TALVEZ SEJA NECESSARIO CRIAR UM PONTEIRO PARA O VECTOR DE TIROS
+
+	Aviao(Campo &c1, std::vector<Tiro> &tiros_vector) {
 		c = &c1;
+        tiros = &tiros_vector;
 		body = 1300; // Posiciona corretamente apenas em um campo 50x30
 		asa1 = body + c->width - 2;
 		asa2 = body + 3 * c->width + 2;
 		draw_on_campo();
 	}
 	
-	Aviao(Campo &c1, Aviao &a, int &pos, Score &s1) { //construtor dos avioes inimigos
+	Aviao(Campo &c1, Aviao &a, int &pos, Score &s1, std::vector<Tiro> &tiros_vector) { //construtor dos avioes inimigos
 		c = &c1;
 		s = &s1;
 		alvo = &a;
+        tiros = &tiros_vector;
 		body = pos - 3 * (1 + c->width); // Posiciona corretamente apenas em qualquer campo
 		asa2 = body - 1;
 		asa1 = body + 2 * c->width - 1;
 		draw_on_campo();
-		trigger();
 		enemy = true;
-	}
-
-	void trigger() {
-		std::thread a1([&]() { this->disparo(); });
-		a1.detach();
 	}
 
 	void draw_on_campo() {
@@ -55,14 +56,24 @@ struct Aviao {
 		}
 	}
 
-	void erase_on_campo() {
-		for(int i = 0; i < 4; i++) c->campo[body + (i * (c->width + 1))] = ' ';
+	//FUNÇÂO ERASE NECESSARIA PARA O PLAYER
+		void erase_on_campo() {
+            for(int i = 0; i < 4; i++) { 
+                if(body + (i * (c->width + 1)) > 0)
+                    c->campo[body + (i * (c->width + 1))] = ' '; 
+            }
 
-		for(int i = 0; i < 7; i++) c->campo[asa1 + i] = ' ';
+            for(int i = 0; i < 7; i++) {
+                if(asa1 + 1 > 0)
+                    c->campo[asa1 + i] = ' ';
+            }
 
-		for(int i = 0; i < 3; i++) c->campo[asa2 + i] = ' ';
-	}
-	
+            for(int i = 0; i < 3; i++) {
+                if(asa2 + i > 0)
+                    c->campo[asa2 + i] = ' ';
+            }
+        }
+
 	void move_e() {
 		if(c->campo[asa1 - 1] == 26) return;
 		erase_on_campo();
@@ -74,7 +85,7 @@ struct Aviao {
 	
 	void move_d() {
 		if(c->campo[asa1 + 7] == 26) return;
-		erase_on_campo();
+        erase_on_campo();
 		body += 1;
 		asa1 += 1;
 		asa2 += 1;
@@ -82,32 +93,26 @@ struct Aviao {
 	}
 
 	
-	void disparo() { //serve apenas para os avioes inimigos
-		for(;;) {
-			draw_on_campo();
-			c->print();
-			std::this_thread::sleep_for(std::chrono::milliseconds(800));
-			erase_on_campo();
-			body += (c->width + 1);
-			asa1 += (c->width + 1);
-			asa2 += (c->width + 1);
+	bool disparo() { //serve apenas para os avioes inimigos
+			//std::this_thread::sleep_for(std::chrono::milliseconds(800)); //SERA COLOCADO NO CONTROLADOR DOS AVIOES
+        body += (c->width + 1);
+        asa1 += (c->width + 1);
+        asa2 += (c->width + 1);
 			
-			if(c->campo[body + 4 * (c->width + 1)] == 26) break;
+        //if(c->frame[body + 4 * (c->width + 1)] == 26) return false;
 
-			if(c->campo[body + 4 * (c->width + 1)] == 'x') {
-				s->update_score();
-				break;}
+        if(c->frame[body + 4 * (c->width + 1)] == 'x') {
+            s->update_score();
+            return false;}
 
-			if(alvo->body % (c->width + 1) == body % (c->width + 1)) atirar(); //na frente do alvo atira	
-		}
-		c->print();
-		return;
+        if(alvo->body % (c->width + 1) == body % (c->width + 1)) atirar(); //na frente do alvo atira	
+		return true;
 	}
 	
 
 	void atirar() {
-		Tiro * t1 = new Tiro{body, *c, enemy};
-		t1->trigger();
-		if(c->campo[t1->pos] == 26) delete t1;
+		Tiro t1{body, *c, enemy};
+        tiros->push_back(t1);
 	}
 };
+

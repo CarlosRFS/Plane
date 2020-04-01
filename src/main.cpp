@@ -10,6 +10,18 @@ int main() {
 			}
 		}
 	);
+    
+    std::thread th2([&]() {
+            for(;;) {
+                jogo.tiros_control(jogo.tiros_vector);
+            }
+    });
+    
+    std::thread th1([&]() {
+            for(;;) {
+                jogo.aviao_control(jogo.enemy_vector);
+            }
+    });
 	jogo.run();
 	return 0;
 }
