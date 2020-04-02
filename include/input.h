@@ -3,32 +3,18 @@
 
 #include <termios.h>
 #include <iostream>
+#include <unistd.h>
+
+#include "aviao.h"
+#include "campo.h"
+
 
 char comando;
 
 struct termios t;
 
-void enter_off() {
-    tcgetattr(STDIN_FILENO, &t);
-    t.c_lflag &= ~ICANON;
-    tcsetattr(STDIN_FILENO, TCSANOW, &t);	
-}
+void enter_off();
 
-void input(Aviao &player, Campo &c) {
-    enter_off();
-    comando = std::cin.get();
-    switch(comando) {
-        case 'a':
-            player.move_e();
-            c.swap_buffers();
-            break;
-        case 'd':
-            player.move_d();
-            c.swap_buffers();
-            break;
-        case 't':
-            player.atirar();
-    }
-}
+void input(Aviao &player, Campo &c);
 	
 #endif

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.7.1)
 Project(Plane)
 include_directories(include)
-set(SOURCES src/main.cpp src/game.cpp src/aviao.cpp )
+set(SOURCES src/main.cpp src/game.cpp src/aviao.cpp src/input.cpp src/menu.cpp src/control_and_draw.cpp src/score.cpp src/tiro.cpp)
 find_package( Threads )
 add_executable(plane ${SOURCES})
 target_link_libraries(plane ${CMAKE_THREAD_LIBS_INIT})
