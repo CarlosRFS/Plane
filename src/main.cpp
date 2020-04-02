@@ -13,13 +13,13 @@ int main() {
     
     std::thread th2([&]() {
             for(;;) {
-                tiros_control(jogo.tiros_vector, jogo.enemy_vector, jogo.player, jogo.c);
+                tiros_control(jogo.tiros_vector, jogo.enemy_vector, jogo.player, jogo.c, jogo.s);
             }
     });
     
     std::thread th1([&]() {
             for(;;) {
-                aviao_control(jogo.enemy_vector, jogo.player, jogo.c);
+                aviao_control(jogo.enemy_vector, jogo.player, jogo.c, jogo.s);
             }
     });
     

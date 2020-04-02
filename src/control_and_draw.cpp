@@ -1,4 +1,5 @@
-#include "control_and_draw.h"
+#include "control_and_draw.h" 
+#include "score.h"
 
 void enemy_draw(std::vector<Aviao> &avioes) {
     if(!avioes.empty()) {
@@ -15,7 +16,8 @@ void tiro_draw(std::vector<Tiro> &tiros) {
     } 
 }
 
-void aviao_control(std::vector<Aviao> &avioes, Aviao &player, Campo &c) {
+
+void aviao_control(std::vector<Aviao> &avioes, Aviao &player, Campo &c, Score &s) {
     std::mutex trava;
     std::this_thread::sleep_for(std::chrono::milliseconds(500)); 
     if(!avioes.empty()) {
@@ -28,13 +30,14 @@ void aviao_control(std::vector<Aviao> &avioes, Aviao &player, Campo &c) {
         trava.lock();
         enemy_draw(avioes);
         player.draw_on_campo(); //Desenhar o player de volta no buffer
+        s.draw_on_campo();
         c.swap_buffers();
         trava.unlock();
         
     }
 }
 
-void tiros_control(std::vector<Tiro> &tiros, std::vector<Aviao> &enemy_vector, Aviao &player, Campo &c) {
+void tiros_control(std::vector<Tiro> &tiros, std::vector<Aviao> &enemy_vector, Aviao &player, Campo &c, Score &s) {
     std::mutex trava;
         
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -51,6 +54,7 @@ void tiros_control(std::vector<Tiro> &tiros, std::vector<Aviao> &enemy_vector, A
         tiro_draw(tiros);
         enemy_draw(enemy_vector);
         player.draw_on_campo();
+        s.draw_on_campo();
         c.swap_buffers();
         trava.unlock();
     }
