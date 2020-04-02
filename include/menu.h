@@ -1,10 +1,14 @@
 #ifndef MENU_H
 #define MENU_H
 
+//STD HEADERS
 #include <array>
 #include <string>
+
+//PROJECT HEADERS
 #include "campo.h"
 #include "game.h"
+#include "input.h"
 
 struct Menu {
 	int difficulty = 1;
@@ -47,12 +51,12 @@ struct Menu {
 			}
 			w += c->width + 1;
 		}
-		c->print();
+		c->swap_buffers();
 		
 	}
 
 	void input(Game &g) {
-		g.enter_off();
+		enter_off();
 		char entrada = std::cin.get();
 		int w = pos + difficulty * (c->width + 1);
 		switch(entrada) {

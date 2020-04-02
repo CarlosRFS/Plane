@@ -1,3 +1,6 @@
+#ifndef TIRO_H
+#define TIRO_H
+
 //STD HEADERS
 #include <chrono>
 #include <thread>
@@ -25,9 +28,9 @@ struct Tiro {
     
     
     bool disparo() {
-			//Direçao do Tiro
-			if(!*enemy) pos -= (c->width + 1);
-			else pos += (c->width + 1);
+        //Direçao do Tiro
+        if(!*enemy) pos -= (c->width + 1);
+        else pos += (c->width + 1);
 
 			if(c->frame[pos] != ' ') return false; // Se a posição dele chegar em algo "desenhado" o loop acaba
 		return true;
@@ -36,3 +39,5 @@ struct Tiro {
 
     
 };
+
+#endif

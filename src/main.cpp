@@ -1,4 +1,4 @@
-#include "../include/menu.h"
+#include "menu.h"
 
 int main() {
 	Game jogo;
@@ -13,15 +13,24 @@ int main() {
     
     std::thread th2([&]() {
             for(;;) {
-                jogo.tiros_control(jogo.tiros_vector);
+                tiros_control(jogo.tiros_vector, jogo.enemy_vector, jogo.player, jogo.c);
             }
     });
     
     std::thread th1([&]() {
             for(;;) {
-                jogo.aviao_control(jogo.enemy_vector);
+                aviao_control(jogo.enemy_vector, jogo.player, jogo.c);
             }
     });
-	jogo.run();
+    
+    std::thread th4([&]() {
+            jogo.run();
+    });
+    
+    th4.join();
+    th3.join();
+    th2.join();
+    th1.join();
+
 	return 0;
 }
