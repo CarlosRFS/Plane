@@ -9,10 +9,6 @@
 #include "campo.h"
 
 
-char comando;
-
-struct termios t;
-
 void enter_off();
 
 void input(Aviao &player, Campo &c);
